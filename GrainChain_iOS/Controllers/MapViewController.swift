@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
     var locationManager: CLLocationManager!
     
     // A track is created using an array of points
-    private var track: [Point]!
+    private var track: [CLLocationCoordinate2D]!
     
     @IBOutlet public weak var mapView: MKMapView! {
         didSet {
@@ -33,7 +33,7 @@ class MapViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         checkLocationPermissionStatus()
-        track = [Point]()
+        track = [CLLocationCoordinate2D]()
     }
     
     @IBAction private func trackRecord() {
@@ -64,6 +64,14 @@ extension MapViewController: MKMapViewDelegate {
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let pr = MKPolylineRenderer(overlay: overlay)
+        pr.strokeColor = .red
+        pr.lineWidth = 5
+        return pr
+    }
+    
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -73,8 +81,9 @@ extension MapViewController: CLLocationManagerDelegate {
         if let lastLocation = locations.last {
             let location = lastLocation.coordinate
             print("new location - lat: \(location.latitude), lng: \(location.longitude)")
-            let newPoint = Point(lat: location.latitude, lng: location.longitude)
-            track.append(newPoint)
+            track.append(location)
+            let polyline = MKPolyline(coordinates: track, count: track.count)
+            mapView.addOverlay(polyline)
         }
     }
 }
