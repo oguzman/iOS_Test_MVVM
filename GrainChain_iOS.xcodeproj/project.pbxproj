@@ -16,6 +16,7 @@
 		B343F8F924140EA60011CA01 /* GrainChain_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F8F824140EA60011CA01 /* GrainChain_iOSTests.swift */; };
 		B343F90424140EA60011CA01 /* GrainChain_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F90324140EA60011CA01 /* GrainChain_iOSUITests.swift */; };
 		B343F91724140FE70011CA01 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F91624140FE70011CA01 /* MapViewModel.swift */; };
+		B343F91A24143B030011CA01 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F91924143B030011CA01 /* Point.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		B343F90324140EA60011CA01 /* GrainChain_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrainChain_iOSUITests.swift; sourceTree = "<group>"; };
 		B343F90524140EA60011CA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B343F91624140FE70011CA01 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		B343F91924143B030011CA01 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		B343F8DF24140EA50011CA01 /* GrainChain_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B343F91824143AE70011CA01 /* Models */,
 				B343F91124140EED0011CA01 /* AppDelegate */,
 				B343F91224140EFD0011CA01 /* Controllers */,
 				B343F91524140F7E0011CA01 /* ViewModels */,
@@ -149,7 +152,6 @@
 			children = (
 				B343F8EA24140EA60011CA01 /* Assets.xcassets */,
 				B343F8EF24140EA60011CA01 /* Info.plist */,
-				B343F8E724140EA50011CA01 /* GrainChain_iOS.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -169,6 +171,15 @@
 				B343F91624140FE70011CA01 /* MapViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B343F91824143AE70011CA01 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B343F8E724140EA50011CA01 /* GrainChain_iOS.xcdatamodeld */,
+				B343F91924143B030011CA01 /* Point.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B343F8E924140EA50011CA01 /* GrainChain_iOS.xcdatamodeld in Sources */,
+				B343F91A24143B030011CA01 /* Point.swift in Sources */,
 				B343F8E324140EA50011CA01 /* MapViewController.swift in Sources */,
 				B343F8E124140EA50011CA01 /* AppDelegate.swift in Sources */,
 				B343F91724140FE70011CA01 /* MapViewModel.swift in Sources */,

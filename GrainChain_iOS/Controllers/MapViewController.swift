@@ -8,26 +8,53 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class MapViewController: UIViewController {
 
-    private let locationManager = CLLocationManager()
+    var locationManager: CLLocationManager!
+    
+    // A track is created using an array of points
+    private var track: [Point]!
     
     @IBOutlet public weak var mapView: MKMapView! {
         didSet {
             mapView.showsUserLocation = true
+            mapView.userTrackingMode = .follow
         }
     }
+    
+    @IBOutlet private weak var btnRecord: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        locationManager.requestWhenInUseAuthorization()
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        checkLocationPermissionStatus()
+        track = [Point]()
+    }
+    
+    @IBAction private func trackRecord() {
+        
+    }
+    
+    private func checkLocationPermissionStatus() {
+        // user activated automatic authorization info mode
+        let status = CLLocationManager.authorizationStatus()
+        if status == .notDetermined || status == .denied || status == .authorizedWhenInUse {
+            // present an alert indicating location authorization required
+            // and offer to take the user to Settings for the app via
+            // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
+            locationManager.requestWhenInUseAuthorization()
+        }
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
 }
 
 // MARK: - MapViewDelegate
-
 extension MapViewController: MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
@@ -36,6 +63,19 @@ extension MapViewController: MKMapViewDelegate {
         let coordinateRegion = MKCoordinateRegion(center: coordinate,
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension MapViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let lastLocation = locations.last {
+            let location = lastLocation.coordinate
+            print("new location - lat: \(location.latitude), lng: \(location.longitude)")
+            let newPoint = Point(lat: location.latitude, lng: location.longitude)
+            track.append(newPoint)
+        }
     }
 }
 
