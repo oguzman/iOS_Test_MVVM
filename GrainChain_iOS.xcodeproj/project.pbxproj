@@ -16,7 +16,12 @@
 		B343F8F924140EA60011CA01 /* GrainChain_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F8F824140EA60011CA01 /* GrainChain_iOSTests.swift */; };
 		B343F90424140EA60011CA01 /* GrainChain_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F90324140EA60011CA01 /* GrainChain_iOSUITests.swift */; };
 		B343F91724140FE70011CA01 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F91624140FE70011CA01 /* MapViewModel.swift */; };
-		B343F91A24143B030011CA01 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F91924143B030011CA01 /* Point.swift */; };
+		B343F91A24143B030011CA01 /* TrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B343F91924143B030011CA01 /* TrackInfo.swift */; };
+		B35BFB332415F507005DC62F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB322415F507005DC62F /* CoreDataManager.swift */; };
+		B35BFB3C2418272E005DC62F /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB3A2418272E005DC62F /* TrackTableViewCell.swift */; };
+		B35BFB3D2418272E005DC62F /* TrackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B35BFB3B2418272E005DC62F /* TrackTableViewCell.xib */; };
+		B35BFB4124186AB5005DC62F /* TrackTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB4024186AB5005DC62F /* TrackTableCellViewModel.swift */; };
+		B35BFB43241878C8005DC62F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB42241878C8005DC62F /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +57,12 @@
 		B343F90324140EA60011CA01 /* GrainChain_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrainChain_iOSUITests.swift; sourceTree = "<group>"; };
 		B343F90524140EA60011CA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B343F91624140FE70011CA01 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		B343F91924143B030011CA01 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		B343F91924143B030011CA01 /* TrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfo.swift; sourceTree = "<group>"; };
+		B35BFB322415F507005DC62F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		B35BFB3A2418272E005DC62F /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
+		B35BFB3B2418272E005DC62F /* TrackTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackTableViewCell.xib; sourceTree = "<group>"; };
+		B35BFB4024186AB5005DC62F /* TrackTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableCellViewModel.swift; sourceTree = "<group>"; };
+		B35BFB42241878C8005DC62F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +113,7 @@
 		B343F8DF24140EA50011CA01 /* GrainChain_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B35BFB312415F4F7005DC62F /* Core */,
 				B343F91824143AE70011CA01 /* Models */,
 				B343F91124140EED0011CA01 /* AppDelegate */,
 				B343F91224140EFD0011CA01 /* Controllers */,
@@ -143,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				B343F8E224140EA50011CA01 /* MapViewController.swift */,
+				B35BFB42241878C8005DC62F /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -161,6 +173,8 @@
 			children = (
 				B343F8EC24140EA60011CA01 /* LaunchScreen.storyboard */,
 				B343F8E424140EA50011CA01 /* Main.storyboard */,
+				B35BFB3A2418272E005DC62F /* TrackTableViewCell.swift */,
+				B35BFB3B2418272E005DC62F /* TrackTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,9 +191,18 @@
 			isa = PBXGroup;
 			children = (
 				B343F8E724140EA50011CA01 /* GrainChain_iOS.xcdatamodeld */,
-				B343F91924143B030011CA01 /* Point.swift */,
+				B343F91924143B030011CA01 /* TrackInfo.swift */,
+				B35BFB4024186AB5005DC62F /* TrackTableCellViewModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B35BFB312415F4F7005DC62F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				B35BFB322415F507005DC62F /* CoreDataManager.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +312,7 @@
 				B343F8EE24140EA60011CA01 /* LaunchScreen.storyboard in Resources */,
 				B343F8EB24140EA60011CA01 /* Assets.xcassets in Resources */,
 				B343F8E624140EA50011CA01 /* Main.storyboard in Resources */,
+				B35BFB3D2418272E005DC62F /* TrackTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,11 +337,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35BFB43241878C8005DC62F /* DetailViewController.swift in Sources */,
+				B35BFB332415F507005DC62F /* CoreDataManager.swift in Sources */,
+				B35BFB4124186AB5005DC62F /* TrackTableCellViewModel.swift in Sources */,
 				B343F8E924140EA50011CA01 /* GrainChain_iOS.xcdatamodeld in Sources */,
-				B343F91A24143B030011CA01 /* Point.swift in Sources */,
+				B343F91A24143B030011CA01 /* TrackInfo.swift in Sources */,
 				B343F8E324140EA50011CA01 /* MapViewController.swift in Sources */,
 				B343F8E124140EA50011CA01 /* AppDelegate.swift in Sources */,
 				B343F91724140FE70011CA01 /* MapViewModel.swift in Sources */,
+				B35BFB3C2418272E005DC62F /* TrackTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

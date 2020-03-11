@@ -1,5 +1,5 @@
 //
-//  Point.swift
+//  TrackInfoModel.swift
 //  GrainChain_iOS
 //
 //  Created by Guzmán, Omar (Cognizant) on 3/7/20.
@@ -9,7 +9,9 @@
 import UIKit
 import CoreLocation
 
-struct Point {
-    var lat: CLLocationDegrees!
-    var lng: CLLocationDegrees!
+struct TrackInfo {
+    var track: [CLLocationCoordinate2D]?
+    var distance: Double?
+    var name: String?
+    var time: Double?
 }
