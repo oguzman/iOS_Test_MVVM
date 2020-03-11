@@ -22,6 +22,8 @@
 		B35BFB3D2418272E005DC62F /* TrackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B35BFB3B2418272E005DC62F /* TrackTableViewCell.xib */; };
 		B35BFB4124186AB5005DC62F /* TrackTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB4024186AB5005DC62F /* TrackTableCellViewModel.swift */; };
 		B35BFB43241878C8005DC62F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB42241878C8005DC62F /* DetailViewController.swift */; };
+		B35BFB472419862F005DC62F /* CoreLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB462419862F005DC62F /* CoreLocationTests.swift */; };
+		B35BFB4924199A99005DC62F /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFB4824199A99005DC62F /* MapViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		B35BFB3B2418272E005DC62F /* TrackTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackTableViewCell.xib; sourceTree = "<group>"; };
 		B35BFB4024186AB5005DC62F /* TrackTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableCellViewModel.swift; sourceTree = "<group>"; };
 		B35BFB42241878C8005DC62F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B35BFB462419862F005DC62F /* CoreLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationTests.swift; sourceTree = "<group>"; };
+		B35BFB4824199A99005DC62F /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,8 @@
 			children = (
 				B343F8F824140EA60011CA01 /* GrainChain_iOSTests.swift */,
 				B343F8FA24140EA60011CA01 /* Info.plist */,
+				B35BFB462419862F005DC62F /* CoreLocationTests.swift */,
+				B35BFB4824199A99005DC62F /* MapViewModelTests.swift */,
 			);
 			path = GrainChain_iOSTests;
 			sourceTree = "<group>";
@@ -354,6 +360,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B343F8F924140EA60011CA01 /* GrainChain_iOSTests.swift in Sources */,
+				B35BFB4924199A99005DC62F /* MapViewModelTests.swift in Sources */,
+				B35BFB472419862F005DC62F /* CoreLocationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,9 +26,17 @@ class GrainChain_iOSUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCreateTrack() {
+        let app = XCUIApplication()
+        if app.buttons["Start Recording"].exists {
+            app.buttons["Start Recording"].tap()
+        }
+        if app.buttons["Stop Recording"].exists {
+            app.buttons["Stop Recording"].tap()
+        }
+        if app.alerts["Thanks!"].exists {
+            app.alerts["Thanks!"].buttons["Ok"].tap()
+        }
     }
 
 }
