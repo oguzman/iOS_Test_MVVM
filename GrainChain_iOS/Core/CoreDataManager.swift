@@ -74,7 +74,7 @@ class CoreDataManager: CoreDataManagerProtocol {
          NSEntityDescription
          A description of an entity in Core Data.
          
-         Retrieving an Entity with a Given Name here dog
+         Retrieving an Entity with a Given Name here
          */
         let entity = NSEntityDescription.entity(forEntityName: "Track", in: managedContext)!
         
@@ -102,7 +102,7 @@ class CoreDataManager: CoreDataManagerProtocol {
         track.setValue(duration, forKey: "duration")
         
         /*
-         You commit your changes to dog and save to disk by calling save on the managed object context. Note save can throw an error, which is why you call it using the try keyword within a do-catch block. Finally, insert the new managed object into the people array so it shows up when the table view reloads.
+         You commit your changes and save to disk by calling save on the managed object context. Note save can throw an error, which is why you call it using the try keyword within a do-catch block. Finally, insert the new managed object into the people array so it shows up when the table view reloads.
          */
         do {
             try managedContext.save()
@@ -120,7 +120,7 @@ class CoreDataManager: CoreDataManagerProtocol {
         
         /*As the name suggests, NSFetchRequest is the class responsible for fetching from Core Data.
          
-         Initializing a fetch request with init(entityName:), fetches all objects of a particular entity. This is what you do here to fetch all Dog entities.
+         Initializing a fetch request with init(entityName:), fetches all objects of a particular entity.
          */
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Track")
         
@@ -130,7 +130,7 @@ class CoreDataManager: CoreDataManagerProtocol {
             var trackInfo = [TrackInfo]()
             let tracks = try managedContext.fetch(fetchRequest)
             
-            for var track in tracks {
+            for track in tracks {
                 let dataPoint = track.value(forKey: "points") as! Array<Array<Any>>
                 let distancePoint = track.value(forKey: "distance") as! Double
                 let name = track.value(forKey: "name") as! String

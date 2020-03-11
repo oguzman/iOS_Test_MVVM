@@ -55,6 +55,7 @@ public class MapViewModel {
         return nil
     }
     
+    // MARK: - Protocol implementations
     func initLoadingTracks() {
         if let loadedTracks = coreDataManager.loadTracks() {
             self.tracks = loadedTracks
