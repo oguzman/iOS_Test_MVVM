@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreGraphics
 
 class DetailViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class DetailViewController: UIViewController {
             mapView.userTrackingMode = .none
             mapView.delegate = self
             drawTrack()
+            let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+            self.navigationItem.rightBarButtonItem = shareButton
         }
     }
     
@@ -37,6 +40,35 @@ class DetailViewController: UIViewController {
             lblDistance.text = trackDetail.distanceText
             lblDuration.text = trackDetail.durationText
         }
+    }
+    
+    @objc
+    private func share() {
+        if let trackDetail = trackDetail {
+            let shareText = "I've had a \(trackDetail.nameText) of \(trackDetail.distanceText) for \(trackDetail.durationText) using Walk Tracker App"
+            let shareImage: UIImage?
+            var shareContent: [Any] = [shareText]
+            if let getShareImage = getImage() {
+                shareImage = getShareImage
+                shareContent.append(shareImage!)
+            }
+            let shareActivity = UIActivityViewController(activityItems: shareContent, applicationActivities: nil)
+            self.present(shareActivity, animated: true, completion: nil)
+        }
+    }
+    
+    private func getImage() -> UIImage? {
+        // Begin context
+        UIGraphicsBeginImageContextWithOptions(self.mapView.bounds.size, false, UIScreen.main.scale)
+
+        // Draw view in that context
+        self.mapView.drawHierarchy(in: self.mapView.bounds, afterScreenUpdates: true)
+
+        // And finally, get image
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return image!
     }
     
     private func drawTrack() {
