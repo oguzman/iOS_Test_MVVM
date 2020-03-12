@@ -11,7 +11,7 @@ import MapKit
 import CoreGraphics
 
 class DetailViewController: UIViewController {
-    
+
     @IBOutlet private weak var lblName: UILabel!
     @IBOutlet private weak var lblDistance: UILabel!
     @IBOutlet private weak var lblDuration: UILabel!
@@ -25,7 +25,7 @@ class DetailViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = shareButton
         }
     }
-    
+
     var trackDetail: TrackTableCellViewModel?
 
     override func viewDidLoad() {
@@ -33,7 +33,7 @@ class DetailViewController: UIViewController {
         title = "Track Detail"
         updateUI()
     }
-    
+
     private func updateUI() {
         if let trackDetail = trackDetail {
             lblName.text = trackDetail.nameText
@@ -41,7 +41,7 @@ class DetailViewController: UIViewController {
             lblDuration.text = trackDetail.durationText
         }
     }
-    
+
     @objc
     private func share() {
         if let trackDetail = trackDetail {
@@ -56,7 +56,7 @@ class DetailViewController: UIViewController {
             self.present(shareActivity, animated: true, completion: nil)
         }
     }
-    
+
     private func getImage() -> UIImage? {
         // Begin context
         UIGraphicsBeginImageContextWithOptions(self.mapView.bounds.size, false, UIScreen.main.scale)
@@ -70,7 +70,7 @@ class DetailViewController: UIViewController {
 
         return image!
     }
-    
+
     private func drawTrack() {
         DispatchQueue.main.async {
             if let tracks = self.trackDetail?.track {
@@ -79,11 +79,10 @@ class DetailViewController: UIViewController {
             }
         }
     }
-
 }
 
 extension DetailViewController: MKMapViewDelegate {
-    
+
     public func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         let regionRadius: CLLocationDistance = 400
         let coordinate =  userLocation.coordinate
@@ -91,11 +90,11 @@ extension DetailViewController: MKMapViewDelegate {
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
-    
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let pr = MKPolylineRenderer(overlay: overlay)
-        pr.strokeColor = .red
-        pr.lineWidth = 5
-        return pr
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = .red
+        renderer.lineWidth = 5
+        return renderer
     }
 }

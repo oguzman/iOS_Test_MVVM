@@ -14,31 +14,30 @@ public class MapViewModel {
     // MARK: - Properties
     private var tracks: [TrackInfo] = [TrackInfo]()
     let coreDataManager: CoreDataManagerProtocol
-    
+
     private var cellViewModels: [TrackTableCellViewModel] = [TrackTableCellViewModel]() {
         didSet {
             self.reloadTableViewClosure?()
         }
     }
-    
+
     var numberOfCells: Int {
         return cellViewModels.count
     }
-    
-    var reloadTableViewClosure: (()->())?
-    var saveTrackClosure: ((Bool)->Void)?
-    var removeTrackClosure: ((Bool)->Void)?
-    
+
+    var reloadTableViewClosure: (() -> ())?
+    var saveTrackClosure: ((Bool) -> Void)?
+    var removeTrackClosure: ((Bool) -> Void)?
+
     // MARK: - Lifecycle
-    
     init (coreDataManager: CoreDataManagerProtocol = CoreDataManager.shared) {
         self.coreDataManager = coreDataManager
     }
-    
+
     func getCellViewModel( at indexPath: IndexPath ) -> TrackTableCellViewModel {
         return cellViewModels[indexPath.row]
     }
-    
+
     func createCellViewModel( track: TrackInfo? ) -> TrackTableCellViewModel? {
         if let trackName = track?.name, let distance = track?.distance, let time = track?.time,
             let trackPath = track?.track {
@@ -54,7 +53,7 @@ public class MapViewModel {
         }
         return nil
     }
-    
+
     // MARK: - Protocol implementations
     func initLoadingTracks() {
         if let loadedTracks = coreDataManager.loadTracks() {
@@ -68,7 +67,7 @@ public class MapViewModel {
             self.cellViewModels = vms
         }
     }
-    
+
     func saveTrack(trackInfo: [CLLocationCoordinate2D], distance: Double, name: String, duration: Double) {
         let saved = coreDataManager.saveTrack(trackInfo: trackInfo,
                                               distance: distance,
@@ -76,7 +75,7 @@ public class MapViewModel {
                                               duration: duration)
         self.saveTrackClosure?(saved)
     }
-    
+
     func removeTrack(index: Int, track: TrackTableCellViewModel) {
         self.tracks.remove(at: index)
         self.cellViewModels.remove(at: index)

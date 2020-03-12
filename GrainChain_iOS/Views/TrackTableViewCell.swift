@@ -14,7 +14,7 @@ class TrackTableViewCell: UITableViewCell {
     @IBOutlet private weak var lblName: UILabel!
     @IBOutlet private weak var lblDistance: UILabel!
     @IBOutlet private weak var lblTime: UILabel!
-    
+
     public var trackCellViewModel: TrackTableCellViewModel? {
         didSet {
             lblName.text = trackCellViewModel?.nameText
@@ -22,7 +22,7 @@ class TrackTableViewCell: UITableViewCell {
             lblTime.text = trackCellViewModel?.durationText
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,8 +30,6 @@ class TrackTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

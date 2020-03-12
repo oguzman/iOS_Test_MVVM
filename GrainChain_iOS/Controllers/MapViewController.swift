@@ -16,14 +16,14 @@ class MapViewController: UIViewController {
     private var coreDataManager = CoreDataManager.shared
     var isRecording = false
     var startWalk: Date?
-    
+
     lazy var viewModel: MapViewModel = {
         return MapViewModel()
     }()
-    
+
     // A track is created using an array of points
     private var track: [CLLocationCoordinate2D]!
-    
+
     @IBOutlet public weak var mapView: MKMapView! {
         didSet {
             mapView.showsUserLocation = true
@@ -31,20 +31,20 @@ class MapViewController: UIViewController {
             mapView.delegate = self
         }
     }
-    
+
     @IBOutlet private weak var tracksTable: UITableView!
     let cellIdentifier = "TrackCell"
     let cellHeight: CGFloat = 115.0
-    
+
     @IBOutlet private weak var btnRecord: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         title = "Walk Tracker"
         initVM()
     }
-    
+
     private func initVM() {
         viewModel.reloadTableViewClosure = { [weak self] () in
             DispatchQueue.main.async {
@@ -56,14 +56,18 @@ class MapViewController: UIViewController {
         }
         viewModel.saveTrackClosure = { [weak self] (_ success: Bool) in
             if success {
-                let alert = UIAlertController(title: "Thanks!", message: "Your walk has been saved", preferredStyle: .alert)
-                let alertOkAction = UIAlertAction(title: "Ok", style: .default) { (done) in
+                let alert = UIAlertController(title: "Thanks!",
+                                              message: "Your walk has been saved",
+                                              preferredStyle: .alert)
+                let alertOkAction = UIAlertAction(title: "Ok", style: .default) { (_) in
                     self?.viewModel.initLoadingTracks()
                 }
                 alert.addAction(alertOkAction)
                 self?.present(alert, animated: false, completion: nil)
             } else {
-                let alert = UIAlertController(title: "Error", message: "Error saving track", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error",
+                                              message: "Error saving track",
+                                              preferredStyle: .alert)
                 let alertOkAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                 alert.addAction(alertOkAction)
                 self?.present(alert, animated: false, completion: nil)
@@ -71,14 +75,18 @@ class MapViewController: UIViewController {
         }
         viewModel.removeTrackClosure = { [weak self] (_ success: Bool) in
             if success {
-                let alert = UIAlertController(title: "Cool!", message: "That track has been removed", preferredStyle: .alert)
-                let alertOkAction = UIAlertAction(title: "Ok", style: .default) { (done) in
+                let alert = UIAlertController(title: "Cool!",
+                                              message: "That track has been removed",
+                                              preferredStyle: .alert)
+                let alertOkAction = UIAlertAction(title: "Ok", style: .default) { (_) in
                     self?.viewModel.initLoadingTracks()
                 }
                 alert.addAction(alertOkAction)
                 self?.present(alert, animated: false, completion: nil)
             } else {
-                let alert = UIAlertController(title: "Error", message: "Error removing track", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error",
+                                              message: "Error removing track",
+                                              preferredStyle: .alert)
                 let alertOkAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                 alert.addAction(alertOkAction)
                 self?.present(alert, animated: false, completion: nil)
@@ -87,18 +95,20 @@ class MapViewController: UIViewController {
         setup()
         viewModel.initLoadingTracks()
     }
-    
+
     private func setup() {
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         checkLocationPermissionStatus()
         track = [CLLocationCoordinate2D]()
-        self.tracksTable.register(UINib(nibName: "TrackTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: self.cellIdentifier)
+        self.tracksTable.register(UINib(nibName: "TrackTableViewCell",
+                                        bundle: Bundle.main),
+                                  forCellReuseIdentifier: self.cellIdentifier)
         tracksTable.delegate = self
         tracksTable.dataSource = self
     }
-    
+
     @IBAction private func trackRecord() {
         isRecording = !isRecording
         mapView.removeAnnotations(mapView.annotations)
@@ -122,18 +132,29 @@ class MapViewController: UIViewController {
                 walkDuration = startWalkDuration * -1
             }
             if let startPoint = track.first, let endPoint = track.last {
-                let start = CLLocation(coordinate: startPoint, altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())
-                let end = CLLocation(coordinate: endPoint, altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())
+                let start = CLLocation(coordinate: startPoint,
+                                       altitude: 0,
+                                       horizontalAccuracy: 0,
+                                       verticalAccuracy: 0,
+                                       timestamp: Date())
+                let end = CLLocation(coordinate: endPoint,
+                                     altitude: 0,
+                                     horizontalAccuracy: 0,
+                                     verticalAccuracy: 0,
+                                     timestamp: Date())
                 let distance = start.distance(from: end) / 1000
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMM/d/yyyy, hh:mm:ss"
                 let today = dateFormatter.string(from: Date())
                 let trackName = "Walk-\(today)"
-                self.viewModel.saveTrack(trackInfo: track, distance: distance, name: trackName, duration: walkDuration)
+                self.viewModel.saveTrack(trackInfo: track,
+                                         distance: distance,
+                                         name: trackName,
+                                         duration: walkDuration)
             }
         }
     }
-    
+
     private func checkLocationPermissionStatus() {
         // user activated automatic authorization info mode
         let status = CLLocationManager.authorizationStatus()
@@ -153,18 +174,22 @@ extension MapViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let detailViewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        let detailViewController = storyboard.instantiateViewController(
+            withIdentifier: "DetailViewController") as! DetailViewController
         detailViewController.trackDetail = cellVM
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            viewModel.removeTrack(index: indexPath.row, track: viewModel.getCellViewModel( at: indexPath ))
+            viewModel.removeTrack(index: indexPath.row,
+                                  track: viewModel.getCellViewModel(at: indexPath))
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -172,25 +197,26 @@ extension MapViewController: UITableViewDelegate {
 
 // MARK: - TableViewDataSource
 extension MapViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfCells
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? TrackTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: self.cellIdentifier,
+            for: indexPath) as? TrackTableViewCell else {
             fatalError("Cell does not exist in storyboard")
         }
         let cellVM = viewModel.getCellViewModel( at: indexPath )
         cell.trackCellViewModel = cellVM
-        
         return cell
     }
 }
 
 // MARK: - MapViewDelegate
 extension MapViewController: MKMapViewDelegate {
-    
+
     public func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         let regionRadius: CLLocationDistance = 400
         let coordinate =  userLocation.coordinate
@@ -198,14 +224,14 @@ extension MapViewController: MKMapViewDelegate {
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
-    
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let pr = MKPolylineRenderer(overlay: overlay)
         pr.strokeColor = .red
         pr.lineWidth = 5
         return pr
     }
-    
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKPointAnnotation else { return nil }
 
@@ -221,12 +247,11 @@ extension MapViewController: MKMapViewDelegate {
 
         return annotationView
     }
-    
 }
 
 // MARK: - CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let lastLocation = locations.last {
             let location = lastLocation.coordinate
